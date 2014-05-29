@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">NetDraw</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="idChoixActivity">ChoixActivity</string>
+    <string name="idProfil">Profil</string>
+    <string name="idJouer">Jouer</string>
+    <string name="idOptions">Options</string>
+    <string name="idRegles">Règles</string>
+    <string name="idDeviner">Deviner</string>
+    <string name="idDessiner">Dessiner</string>
+    <string name="title_activity_draw">DrawActivity</string>
+    <string name="idBlack">Black</string>
+	<string name="idBlue">Blue</string>
+	<string name="idMargenta">Margenta</string>
+	<string name="idYellow">Yellow</string>
+	<string name="idRed">Red</string>
+    
+</resources>
