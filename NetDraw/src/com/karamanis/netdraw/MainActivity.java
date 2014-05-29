@@ -40,7 +40,7 @@ public class MainActivity extends Activity  {
   				Toast.makeText(getApplicationContext(), "Vous êtes Devineur : "+typeClient, Toast.LENGTH_LONG);
 			}
   			   
-             //Commentaire de test
+             //Commentaire de change
          }
          return true;
      }
