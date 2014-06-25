@@ -1,70 +1,80 @@
 package com.karamanis.netdraw;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.Socket;
-import java.net.UnknownHostException;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
+import android.media.MediaPlayer;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.Window;
-import android.widget.Toast;
 
 public class MainActivity extends Activity  { 
-	 Socket socket = null;
-	 DataOutputStream dataOutputStream = null;
-	 DataInputStream dataInputStream = null;
-	 int typeClient;
- 
+	private MediaPlayer player;
      @Override
      public void onCreate(Bundle savedInstanceState) {
          super.onCreate(savedInstanceState);
          this.requestWindowFeature(Window.FEATURE_NO_TITLE);
          setContentView(R.layout.activity_main);
-         doConnect();
-         Log.d("EM", "Create");
+        /* 
+         BackgroundSound bs = new BackgroundSound();
+         bs.execute();
+         */
      }
      
      @Override
      public boolean onTouchEvent(MotionEvent event) {
-         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-  			  
-  			if(typeClient==0){
-  				//Intent intent = new Intent(MainActivity.this, DrawActivity.class);
-  				//startActivity(intent);	
-  				Toast.makeText(getApplicationContext(), "Vous êtes Dessinateur : "+typeClient, Toast.LENGTH_LONG);
-  			}else {
-  				Toast.makeText(getApplicationContext(), "Vous êtes Devineur : "+typeClient, Toast.LENGTH_LONG);
-			}
-  			   
-             //Commentaire de change TESTTTTTTTTTTTTTTTTTTTTTTTTTTT
-         }
-         return true;
+    	 if (event.getAction() == MotionEvent.ACTION_DOWN) {
+    		Intent intent = new Intent(MainActivity.this, ConnexionActivity.class);
+    	  	startActivity(intent);	
+		}
+        return true;
      }
      
-     public void doConnect (){
-    	 Toast.makeText(this, "TEST SERVER", Toast.LENGTH_LONG);
-    	 Thread t = new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				try {
-					socket = new Socket("192.168.0.19", 50100);
-					dataOutputStream = new DataOutputStream(socket.getOutputStream());
-		  			dataInputStream = new DataInputStream(socket.getInputStream());
-		  			typeClient = dataInputStream.readInt();
-				} catch (UnknownHostException uhe){
-					Log.d("EM", "UnknownHostException "+uhe.getMessage());
-				}catch (IOException ioe) {
-					Log.d("EM", "IOException "+ioe.getMessage());
-				}
-				
-			}
-		});
-    	 t.start();
-    	 
-     }
+     @Override
+    protected void onResume() {
+    	super.onResume();
+    	if(player!=null){
+    		player.start();
+    	}
+    }
+     @Override
+    protected void onPause() {
+    	super.onPause();
+    	if(player!=null){
+    		player.pause();
+    	}
+    }
+     
+     public class BackgroundSound extends AsyncTask<Void, Void, Void> {
+
+    	    @Override
+    	    protected Void doInBackground(Void... params) {
+    	      /*  MediaPlayer player = MediaPlayer.create(MainActivity.this, R.raw.test_cbr); 
+    	        player.setLooping(true); // Set looping 
+    	        player.setVolume(100,100); 
+    	        player.start(); 
+    	        */
+    	    	AssetFileDescriptor afd;
+    	    	try {
+	    	    	// Read the music file from the asset folder
+	    	    	afd = getAssets().openFd("music.mp3");
+	    	    	// Creation of new media player;
+	    	    	player = new MediaPlayer();
+	    	    	// Set the player music source.
+	    	    	player.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(),afd.getLength());
+	    	    	// Set the looping and play the music.
+	    	    	player.setLooping(true);
+	    	    	player.prepare();
+	    	    	player.start();
+    	    	} catch (IOException e) {
+    	    		e.printStackTrace();
+    	    	}
+
+    	        return null;
+    	    }
+
+    }
 }

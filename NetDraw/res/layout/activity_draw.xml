@@ -6,7 +6,7 @@
     android:orientation="vertical"
     tools:context=".DrawActivity" >
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/toolLayout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -23,9 +23,29 @@
             android:id="@+id/ibt_Send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
             android:src="@android:drawable/ic_menu_send" />
 
-    	</LinearLayout>
+        <TextView
+            android:id="@+id/tvWordDraw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textColor="#FFFFFF"
+            android:text="Mot"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <ImageButton
+            android:id="@+id/ibtErase"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tvWordDraw"
+            android:layout_toRightOf="@+id/ibt_Color"
+            android:src="@android:drawable/editbox_dropdown_light_frame" />
+
+    	</RelativeLayout>
 
         
 

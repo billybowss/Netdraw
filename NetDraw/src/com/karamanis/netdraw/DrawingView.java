@@ -21,7 +21,16 @@ public class DrawingView extends View {
 	//canvas bitmap
 	private Bitmap canvasBitmap;
 
-    public DrawingView(Context c) {
+    public Bitmap getCanvasBitmap() {
+		return canvasBitmap;
+	}
+
+	public void setCanvasBitmap(Bitmap canvasBitmap) {
+		this.canvasBitmap = canvasBitmap;
+		this.refreshDrawableState();
+	}
+
+	public DrawingView(Context c) {
 	    super(c);
 	    drawPath = new Path();
 	    drawPaint = new Paint();
@@ -68,6 +77,7 @@ public class DrawingView extends View {
 	    	    return false;
     	}
     	invalidate();
+    	
     	return true;
     }
 
